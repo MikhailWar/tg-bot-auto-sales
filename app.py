@@ -1,4 +1,5 @@
 from loader import bot, storage
+from utils.set_bot_commands import set_default_commands
 
 
 async def on_startup(dp):
@@ -9,6 +10,7 @@ async def on_startup(dp):
 
     from utils.notify_admins import on_startup_notify
     await on_startup_notify(dp)
+    await set_default_commands(dp)
 
 
 async def on_shutdown(dp):
