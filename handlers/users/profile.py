@@ -1,6 +1,7 @@
 from aiogram import types
 from aiogram.dispatcher.filters import Command
 
+from keyboards.inline import generation_random_call_inline_mode
 from loader import dp, db, con_currency, bot
 
 
@@ -29,4 +30,5 @@ ID - <b>{message.from_user.id}</b>
 Ваш реферальный код: <code>{message.from_user.id}</code>
 
     """
-    await message.answer(text=text)
+    await message.answer(text=text,
+                         reply_markup=generation_random_call_inline_mode(""))
