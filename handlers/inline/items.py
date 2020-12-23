@@ -60,7 +60,6 @@ async def conclusion_select_item(query: types.InlineQuery, state: FSMContext):
     bot_username = (await bot.get_me()).username
     await InlineState.inline_mode.set()
     media = []
-    print("Мы в инлайн хендрее")
     items_database = [tuple(item) for item in await db.select_items(name=query.query)]
 
     for item_id, name, description, price, price_btc, photo, currency, count in items_database:
@@ -74,7 +73,7 @@ async def conclusion_select_item(query: types.InlineQuery, state: FSMContext):
                                                                      f"Количество товара: {count}",
                                                         parse_mode="HTML"
                                                     ),
-
+                                                    thumb_url=photo,
                                                     description=f"Цена товара: {price_btc} BTC",
                                                     reply_markup=show_item_function(item_id, bot_username)
 

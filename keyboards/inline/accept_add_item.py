@@ -13,7 +13,7 @@ def accept_to_add_item(bot_username:  str, item_id: int):
     )
 
     keyboard_add = types.InlineKeyboardMarkup(row_width=2)
-    keyboard_add.add(types.InlineKeyboardButton(text="Показать товар", url=f"https://t.me/{bot_username}?start={item_id}"))
+
     buttons = []
     for name, data in yes_no:
         buttons.append(types.InlineKeyboardButton(text=f"{name}", callback_data=f"{data}"))

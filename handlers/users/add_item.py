@@ -86,12 +86,18 @@ async def write_description_item(message: types.Message, state: FSMContext):
 @dp.message_handler(regexp=r"[\d+\s.\d.\d+]", state=AddItem.price)
 async def setting_price_item(message: types.Message, state: FSMContext):
     #  100 000 или 100000
-    price_str = parse_amount(message.text)
-    getcontext().prec=2
-    price = Decimal(f"{price_str}")
-    await state.update_data(price=price)
-    await message.answer("Отправьте ссылку на фото товара")
-    await AddItem.next()
+    try:
+        price_str = parse_amount(message.text)
+
+        getcontext().prec=2
+        price = Decimal(f"{price_str}")
+        await state.update_data(price=price)
+        await message.answer("Отправьте ссылку на фото товара")
+        await AddItem.next()
+
+    except:
+        await message.answer("Неправильный формат")
+        return
 
 
 @dp.message_handler(regexp=r"(?P<url>https?://[^\s]+)", state=AddItem.photo)

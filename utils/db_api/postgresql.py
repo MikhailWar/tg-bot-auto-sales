@@ -51,7 +51,7 @@ class DataBase(object):
             sql = "INSERT INTO users (user_id, full_name) VALUES ($1, $2)"
             return await self.pool.execute(sql, user_id, full_name)
         except:
-            logging.info("Данный пользовль уже был добавлен в базу данных.")
+            pass
 
     async def add_item_base(self, value: tuple):
         sql = "INSERT INTO items (id_item, name, description, price, photo, currency,  price_btc, count) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)"
