@@ -93,7 +93,7 @@ class DataBase(object):
     @staticmethod
     async def format_select_items(sql, name):
         sql+=" ".join([
-                f"'{name}%'"
+                f"'%{name}%'"
             ])
         return sql
 

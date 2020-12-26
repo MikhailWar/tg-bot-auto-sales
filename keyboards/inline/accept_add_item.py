@@ -3,7 +3,7 @@ from aiogram import types
 from loader import bot
 
 
-def accept_to_add_item(bot_username:  str, item_id: int):
+def accept_to_add_item():
     # цена
     # принять отказать в добавлении
 

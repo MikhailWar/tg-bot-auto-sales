@@ -9,7 +9,7 @@ from aiogram.dispatcher.filters import Command, Text
 
 from data import config
 from data.item_id_buy import items_id
-from filters import CheckItems, IsAdmin, IsNotRefferal
+from filters import CheckItems
 from keyboards.inline import buy_item_func_start, buy_item_func_end
 from keyboards.inline.CallBackData import buy_callback_factory
 from loader import dp, db, con_currency
@@ -81,18 +81,21 @@ async def setting_count_item(message: types.Message, state: FSMContext):
 @dp.message_handler(state=ItemBuy.delivery_address)
 async def setting_delivery_address(message: types.Message, state: FSMContext):
     await state.update_data(delivery=message.text)
+
     data = await state.get_data()
     item_id = items_id[message.from_user.id]  # достааем айди товара
     del items_id[message.from_user.id]  # удалаяем
+
     item_id, name, description, price, price_btc, photo, currency, count = await db.select_items_all_where_items_id(
         item_id)
+
     await state.update_data(name_item=name)
     await state.update_data(delivery_address=message.text)
+
     the_commission = blockcypher.satoshis_to_btc(random.randint(1, 500))
-
     getcontext().prec = 12
-
     amount = (Decimal(f"{price_btc}") * Decimal(f"{data.get('count')}")) + Decimal(f"{the_commission}")
+
     await state.update_data(amount=Decimal(f"{amount}"))
     await message.answer(f"Вы выбрали товар: <b>{name}</b>\n"
                          f"Количество товара: <b>{data.get('count')}</b>\n"
@@ -102,13 +105,14 @@ async def setting_delivery_address(message: types.Message, state: FSMContext):
 
     payment = Payment(amount=float(f"{amount:.12f}"))
     payment.create()
-    await state.update_data(payment=payment)
 
+    await state.update_data(payment=payment)
     await ItemBuy.next()
 
 
 @dp.callback_query_handler(text="cancel", state=ItemBuy.paid)
 async def cancel_paid(call: types.CallbackQuery, state: FSMContext):
+
     await call.message.edit_reply_markup()
     await call.message.edit_text(text="Вы отменили покупку.")
     await state.finish()
@@ -118,7 +122,9 @@ async def cancel_paid(call: types.CallbackQuery, state: FSMContext):
 async def to_apply_discount(call: types.CallbackQuery, state: FSMContext):
     data = await state.get_data()
     amount_btc = data.get("amount")
+
     getcontext().prec = 12
+
     balance_user = tuple(await db.select_balance(user_id=call.from_user.id))
     balance_user = Decimal(f"{balance_user[0]}")  # amount
     rate_from_dollar_in_btc = await con_currency.convert_currency(
@@ -133,11 +139,12 @@ async def to_apply_discount(call: types.CallbackQuery, state: FSMContext):
         await call.answer(text="Вы не можете применить скидку. Она первышает общую стоимость покупки.", show_alert=True)
         await call.message.edit_reply_markup(reply_markup=buy_item_func_end(True))
         return
+
     #  обновляем баланс юзера
     await db.set_balance_user(user_id=call.from_user.id, balance=0)
-
     payment = Payment(amount=amount)
     payment.create()
+
     await state.update_data(amount=amount)
     await call.message.delete()
     await call.message.answer(f"Скидка успешна применена. Поздравляю!\n"
@@ -156,7 +163,6 @@ async def check_payment(call: types.CallbackQuery, state: FSMContext):
     name_item = data.get("name_item")
     delivery_address = data.get("delivery_address")
 
-    print(data.get("payment"))
     payment: Payment = data.get("payment")
 
     try:

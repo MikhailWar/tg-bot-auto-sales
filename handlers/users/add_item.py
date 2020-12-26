@@ -69,14 +69,18 @@ async def random_id_item(call: types.CallbackQuery, state: FSMContext):
     await AddItem.next()
 
 
-@dp.message_handler(state=AddItem.name, content_types=["text"])
+@dp.message_handler(state=AddItem.name)
 async def write_name_item(message: types.Message, state: FSMContext):
-    await state.update_data(name=message.text)
+    _name_item = message.text[1:]
+    first_letter = message.text[:1].upper()
+    name_item = first_letter+_name_item
+    print(name_item)
+    await state.update_data(name=name_item)
     await message.answer("Введите описание товара")
     await AddItem.next()
 
 
-@dp.message_handler(state=AddItem.description, content_types=["text"])
+@dp.message_handler(state=AddItem.description)
 async def write_description_item(message: types.Message, state: FSMContext):
     await state.update_data(description=message.text)
     await message.answer("Какая цена вашего товара?")
@@ -160,7 +164,7 @@ async def setting_count_item(message: types.Message, state: FSMContext):
     await message.answer_photo(
         photo=data.get('photo'),
         caption="\n".join(text),
-        reply_markup=accept_to_add_item(bot_username, item_id)
+        reply_markup=accept_to_add_item()
     )
     await AddItem.end_accept.set()
 
