@@ -7,7 +7,7 @@ Clone Repository
 - git clone https://github.com/Maiss-python/tg-bot-auto-sales.git
 
 Create new file .env
-- > .env
+- > nano .env
 
 Download database PostgreSQL
 - sudo apt install postgresql
