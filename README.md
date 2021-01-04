@@ -9,11 +9,11 @@ Clone Repository
 Create new file .env
 - > .env
 
-Downoload database PostgreSQL
+Download database PostgreSQL
 - sudo apt install postgresql
 
 Writing data in file .env
-- BOT_TOKEN = You need to give token from Telegram @BotFather
+- BOT_TOKEN = You need to get token from Telegram @BotFather
 - PGUSER =postgres
 - PGPASSWORD = you_password
 - BLOCKCYPER_TOKEN = get token https://www.blockcypher.com/
