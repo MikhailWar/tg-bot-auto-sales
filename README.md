@@ -4,13 +4,13 @@ for automatic sales
 Instruction 
 
 Clone Repository
-- git clone https://github.com/Maiss-python/tg-bot-auto-sales.git
+- > git clone https://github.com/Maiss-python/tg-bot-auto-sales.git
 
 Create new file .env
 - > nano .env
 
 Download database PostgreSQL
-- sudo apt install postgresql
+- > sudo apt install postgresql
 
 Writing data in file .env
 - BOT_TOKEN = You need to get token from Telegram @BotFather
@@ -23,8 +23,8 @@ Writing data in file .env
 
 RUN BOT TELEGRAM 
 
-- cd tg-bot-auto-sales
-- sudo docker-compose up
+- > cd tg-bot-auto-sales
+- > sudo docker-compose up
 
 
-Good Luck
+<b>Good Luck</b>
