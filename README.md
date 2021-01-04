@@ -1,18 +1,18 @@
 # tg-bot-auto-sales
 for automatic sales
 
-Instruction 
+<h2>Instruction</h2> 
 
-Clone Repository
+<b>Clone Repository</b>
 - > git clone https://github.com/Maiss-python/tg-bot-auto-sales.git
 
-Create new file .env
+<b>Create new file .env</b>
 - > nano .env
 
-Download database PostgreSQL
+<b>Download database PostgreSQL</b>
 - > sudo apt install postgresql
 
-Writing data in file .env
+<b>Writing data in file .env</b>
 - BOT_TOKEN = You need to get token from Telegram @BotFather
 - PGUSER =postgres
 - PGPASSWORD = you_password
@@ -21,7 +21,7 @@ Writing data in file .env
 - TOKEN_CONVERT = get token https://www.currencyconverterapi.com/
 - URL_CONVERT =https://free.currconv.com/api/v7/convert?apiKey=
 
-RUN BOT TELEGRAM 
+<b>Run bot Telegram </b>
 
 - > cd tg-bot-auto-sales
 - > sudo docker-compose up
