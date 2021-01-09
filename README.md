@@ -1,7 +1,7 @@
 # tg-bot-auto-sales
 for automatic sales
 
-<h2>Instruction</h2> 
+<h2>Instruction. How to run a bot in Linux?</h2> 
 
 <b>Clone Repository</b>
 - > git clone https://github.com/Maiss-python/tg-bot-auto-sales.git
